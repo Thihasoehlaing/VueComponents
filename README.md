@@ -15,9 +15,7 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+### References
 ```
-npm run lint
+used [vue version 2](https://vuejs.org/) and [vue-advanced-cropper](https://www.npmjs.com/package/vue-advanced-cropper) package and [TailwindCSS](https://tailwindcss.com/).
 ```
-
-used VUE version 2 and [vue-advanced-cropper](https://www.npmjs.com/package/vue-advanced-cropper) package and [TailwindCSS](https://tailwindcss.com/).
