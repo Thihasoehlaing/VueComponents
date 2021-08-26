@@ -45,5 +45,9 @@
 		"last 2 versions",
 		"not dead"
 	],
-	"author": "Thiha Soe Hlaing <thihasoehlaing329@gmail.com>"
+	"author": "Thiha Soe Hlaing <thihasoehlaing329@gmail.com>",
+	"repository": {
+	    "type": "git",
+	    "url": "git+https://github.com/Thihasoehlaing/VueMultiUploaderWithCrop.git"
+	}
 }
