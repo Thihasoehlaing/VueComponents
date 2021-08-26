@@ -20,5 +20,4 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+used VUE version 2 and [vue-advanced-cropper](https://www.npmjs.com/package/vue-advanced-cropper) package and [TailwindCSS](https://tailwindcss.com/).
