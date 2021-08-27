@@ -15,63 +15,63 @@ npm run serve
 ```
 ## Usage
 ```
-	<div>
-		<div class="mt-5 px-5">
-			<multi-crop
-				:name="'test'"
-      			:id="'test'"
-				v-model="form.image"
-				class="px-2 py-2"
-				:stencilProps="options"
-				:preset="form.preset"
-				@uploaded="Uploaded"
-			></multi-crop>
-		</div>
-		<div
-			v-if="form.imageURL && form.imageURL.length > 0"
-			class="mt-2 mx-auto"
-		>
-			Uploaded Image :
-
-			<ul
-				v-for="image in form.imageURL"
-				v-bind:key="image"
-			>
-				<li>{{image}}</li>
-			</ul>
-		</div>
+<div>
+	<div class="mt-5 px-5">
+		<multi-crop
+			:name="'test'"
+			:id="'test'"
+			v-model="form.image"
+			class="px-2 py-2"
+			:stencilProps="options"
+			:preset="form.preset"
+			@uploaded="Uploaded"
+		></multi-crop>
 	</div>
+	<div
+		v-if="form.imageURL && form.imageURL.length > 0"
+		class="mt-2 mx-auto"
+	>
+		Uploaded Image :
+
+		<ul
+			v-for="image in form.imageURL"
+			v-bind:key="image"
+		>
+			<li>{{image}}</li>
+		</ul>
+	</div>
+</div>
 
 import MultCropUploader from './components/MultiCropUploader.vue'
-export default {
-	name: 'App',
-	components: {
-		"multi-crop" : MultCropUploader
-	},
-	data(){
-		return{
-			helper,
-			form:{
-				image: [], // for files
-				preset: [], // use after fetch data from api
-				imageURL: [] // cropped images' url 
-			},
-			options:{
-				handlers: {},
-				movable: true,
-				scalable: false,
-				aspectRatio: 16/9,// 1 
-			},
-		};
-	},
-	methods:{
-		Uploaded(file,image){
-			console.log("file", file, image);
-			this.form.image = file;
-			this.form.imageURL = image;
+	export default {
+		name: 'App',
+		components: {
+			"multi-crop" : MultCropUploader
 		},
+		data(){
+			return{
+				helper,
+				form:{
+					image: [], // for files
+					preset: [], // use after fetch data from api
+					imageURL: [] // cropped images' url 
+				},
+				options:{
+					handlers: {},
+					movable: true,
+					scalable: false,
+					aspectRatio: 16/9,// 1 
+				},
+			};
+		},
+		methods:{
+			Uploaded(file,image){
+				console.log("file", file, image);
+				this.form.image = file;
+				this.form.imageURL = image;
+			},
+		}
 	}
-}
 ```
 ### Component
 ```
