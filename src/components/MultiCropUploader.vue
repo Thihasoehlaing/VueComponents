@@ -1,14 +1,14 @@
 <template>
-	<div class="w-full" id="crop-container">
+	<div class="w-full" :id="id" :name="name">
 		<div 
-			class="px-6 py-2 border-2 border-gray-300 border-dashed rounded-md"
+			class="px-3 py-2 border-2 border-gray-300 border-dashed rounded-md"
 		>
 			<div class="space-y-2 ">
-				<div class="space-x-4 flex" v-if="crop.image.length > 0">
+				<div class="grid grid-cols-4 gap-2" v-if="crop.image.length > 0">
 					<div
 						v-for="(img, index) in crop.image"
 						v-bind:key="index"
-						class=""
+						class="col-span-1"
 					>
 						<div 
 							class="cursor-pointer text-center p-1 border rounded"
@@ -16,37 +16,32 @@
 						>
 							<img 
 								:src="img"
-								class="mx-auto w-60"
+								:class="imgClass"
 							>
 						</div>
-						<div class="flex items-center justify-around mt-3">
-							<button 
-								type="button" 
-								class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-								@click="removeUncropFile(index)"
-							>
-							    <svg 
-							    	xmlns="http://www.w3.org/2000/svg" 
-							    	class="h-6 w-6" 
-							    	fill="none" 
-							    	viewBox="0 0 24 24" 
-							    	stroke="currentColor"
+						<div class="flex mt-2 justify-center">
+							<span class="relative z-0 inline-flex shadow-sm rounded-md">
+								<button 
+							    	type="button" 
+							    	class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+							    	@click="removeUncropFile(index)"
 							    >
-								  	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-								</svg>
-								<span>Remove</span>
-							</button>
-							<button 
-								type="button" 
-								class="inline-flex items-center px-7 py-3 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-								@click="openCropModal(index)"
-							>
-							    Crop
-							</button>
+							      	<span class="sr-only">Remove</span>
+							      	Remove
+							    </button>
+							    <button 
+							    	type="button" 
+							    	class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+							    	@click="openCropModal(index)"
+							    >
+							      	<span class="sr-only">Crop</span>
+							      	Crop
+							    </button>
+							</span>
 						</div>
 					</div>
 					<div
-						class="my-auto"
+						class="my-auto ml-2"
 	  					v-if="crop.file.length > 0"
 					>
 						<label 
@@ -60,7 +55,7 @@
 	                      		Add a Photo
 	                      	</button>
 	                      	<input 
-	                      		id="add-file" 
+	                      		:id="id + 'add-file'" 
 	                      		name="add-file" 
 	                      		type="file" 
 	                      		class="sr-only"
@@ -93,7 +88,7 @@
                       		Upload a Photo
                       	</button>
                       	<input 
-                      		id="file-upload" 
+                      		:id="id + 'file-upload'"
                       		name="file-upload" 
                       		type="file" 
                       		class="sr-only"
@@ -225,6 +220,19 @@
 				type: Number,
 				required: false,
 				default: 5
+			},
+			imgClass: {
+				type: String,
+				required: false,
+				default: "mx-auto w-60"
+			},
+			id: {
+				type: String,
+				required: false,
+			},
+			name: {
+				type: String,
+				required: false,
 			}
 		},
 
@@ -269,11 +277,11 @@
 
 		methods:{
 			showFile(){
-				document.getElementById("file-upload").click();
+				document.getElementById(this.id +"file-upload").click();
 			},
 
 			addFile(){
-				document.getElementById("add-file").click();
+				document.getElementById(this.id + "add-file").click();
 			},
 
 			removeUncropFile(key){
@@ -310,12 +318,12 @@
 			processFile(event) {
 				var newFileList = Array.from(event.target.files);
 				this.file = newFileList;
-				this.crop.file = this.file;
 
 				if(this.crop.file.length > this.maxFilesize)
 				{
 					window.toastr.warn("Max File Size Reached");
 				} else {
+					this.crop.file = this.file;
 					this.image = this.file.map(item => {
 						console.log("item",item);
 						return URL.createObjectURL(item)
@@ -335,13 +343,11 @@
   					this.file.push(this.add[i]);
   				}
 
-  				this.crop.file = this.file;
-
   				if(this.crop.file.length > this.maxFilesize)
 				{
 					window.toastr.warn("Max File Size Reached");
 				} else {
-
+					this.crop.file = this.file;
 					this.addImage = this.add.map(item => {
 						return URL.createObjectURL(item)
 					});

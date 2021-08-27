@@ -6,6 +6,8 @@
 
 		<div class="mt-5 px-5">
 			<multi-crop
+				:name="'test'"
+      			:id="'test'"
 				v-model="form.image"
 				class="px-2 py-2"
 				:stencilProps="options"
