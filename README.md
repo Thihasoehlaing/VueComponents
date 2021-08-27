@@ -1,8 +1,8 @@
 # vue-multiuploader-crop
 
-<img src=public/ss1.png” raw=true alt=“screenshot” style=“margin-left: 10px;” />
+![ScreenShot](/public/ss1.png)
 
-<img src=public/ss2.png” raw=true alt=“screenshot” style=“margin-left: 10px;margin-top:20px” />
+![Screenshot](/public/ss2.png)
 
 ## Project setup
 ```
